@@ -1,0 +1,149 @@
+https://www.acronis.com/en/tru/posts/from-emerging-threat-to-top-tier-ransomware-as-a-service-the-evolution-of-inc-ransomware/
+
+以下は、あなたのテンプレートにそのまま転記できる形式で、余計な解説を省いてまとめたものです。
+ 
+⸻
+ 
+被害事例
+公開日
+2026年6月17日
+被害企業
+米国の医療機関、製造業、教育機関等（複数）
+被害対象／規模
+Windows及びLinux／ESXi環境、Veeam Backup Server
+漏洩確認データ
+機密文書、業務データ、バックアップデータ
+被害内容／侵害情報
+脆弱な外部公開機器または窃取済み認証情報から侵入。ネットワーク探索後、Veeam Backup Serverから認証情報を窃取し、PsExecやRDP等で横展開を実施。EDR停止後、7-Zip及びrcloneを用いてデータを窃取し、Windows及びLinux／ESXi環境へランサムウェアを展開。
+その他考察
+二重恐喝（Double Extortion）を採用し、データ暗号化と情報公開を組み合わせて身代金を要求。
+ 
+技術情報
+攻撃に利用されたIPアドレス
+公開情報なし
+⸻
+ 
+ドメイン
+incblog[.]su
+incblog6qu4y4mm4zvw5nrmue6qbwtgjsxpw6b7ixzssu36tsajldoad[.]onion
+incpaykabjqc2mtdxq6c23nqh4x6m5dkps5fr6vgdkgzp5njssx6qkid[.]onion
+ファイルハッシュ（SHA-256）
+31800380c359143ae82c4f9011eee653dd22443d03d6a499148203bbfc275502
+ea721240c14e3d14f8d88e0020880448c6c602f1180a1e5dbe40871cfeedcc22
+589d9480fbfec2d8e61638eb0b537183d0f9977411fd1d2c0f8eb611feebe880
+関連マルウェア
+INC Ransomware（Windows）
+INC Ransomware（Linux／ESXi）
+改変版 Veeam-Get-Creds.ps1
+ProcessTerminator
+コマンドライン
+cmd.exe /Q /c powershell.exe -e <Base64 PowerShell>
+
+ProcessTerminator.exe -p <PID/Process Name>
+ 
+⸻
+ 
+脅威アクター関連
+脅威アクター名
+INC Ransom（MITRE：GOLD IONIC）
+攻撃元（APTグループ名、TTP）
+Ransomware-as-a-Service（RaaS）
+主なTTP
+Valid Accounts（T1078）
+Exploit Public-Facing Application（T1190）
+Remote Services（RDP）
+PsExec
+Credential Access
+Data Exfiltration
+Data Encrypted for Impact（T1486）
+攻撃目的
+金銭目的（ランサムウェア／二重恐喝）
+その他関連情報
+Veeam認証情報窃取ツールを利用
+Cobalt Strike、AnyDesk、TeamViewer等の正規ツールを悪用
+7-Zip及びrcloneによるデータ持ち出し
+Windows及びLinux／ESXi双方に対応したランサムウェアを展開
+ 
+⸻
+ 
+この内容であれば、NRI Secureのテンプレートにそのまま貼り付けても違和感のない粒度になっています。
+
+
+あります。今回のテンプレートに最も適しているのは、ShinyHuntersよりINC Ransomです。
+直近3か月では、Acronisが2026年6月17日にINC Ransomの詳細分析を公開しており、ファイルハッシュ、ドメイン、コマンドライン、関連ツール、YARAルールまで掲載しています。技術情報を主軸にするなら、こちらがかなり使いやすいです。
+推奨：INC Ransom
+技術情報欄
+￼
+公開されたネットワークIOCは以下です。
+incblog[.]su
+
+incblog6qu4y4mm4zvw5nrmue6qbwtgjsxpw6b7ixzssu36tsajldoad[.]onion
+
+incpaykabjqc2mtdxq6c23nqh4x6m5dkps5fr6vgdkgzp5njssx6qkid[.]onion
+資料の「ドメイン」欄が狭い場合は、通常ドメインの
+incblog[.]su
+を記載し、.onionアドレスは「その他関連情報」に分けると見やすいです。
+ファイルハッシュ
+AcronisはWindows版17件、Linux／ESXi版5件のSHA-256を公開しています。すべて入れるとスライドが埋まるため、本文には代表値を数件載せ、残りは別紙やIOC一覧にするのが良いです。
+Windows版の例
+31800380c359143ae82c4f9011eee653dd22443d03d6a499148203bbfc275502
+
+ea721240c14e3d14f8d88e0020880448c6c602f1180a1e5dbe40871cfeedcc22
+
+8d1a22c430252f29611766b8e4a82af0fba60d609246463466b384d6d4793df4
+
+bf8c45e5aa9551a17eefbd1d179422c32b4309c47ee9a3f315bb80ed6d4f7efc
+
+6bf155b269d452f3c3b62832b27bbebe4da436e228dbf521155b1d5989e3743f
+Linux／ESXi版の例
+589d9480fbfec2d8e61638eb0b537183d0f9977411fd1d2c0f8eb611feebe880
+
+7f37351979c249417cb180b4ede0ed17e5fe2a1f08add4d72606b589f8fdb245
+
+5cc212f84d2bf3fbab165aaf09b16e00fcf2f1ccd880d24b14404c53dcdbf241
+スライドでは次のような記載で十分です。
+INC RansomwareのWindows版およびLinux／ESXi版に関連する複数のSHA-256が公開されている。詳細は別紙IOC一覧を参照。
+コマンドライン
+直近の攻撃では、Base64エンコードしたPowerShellをcmd.exe経由で実行し、Veeam Backupサーバから認証情報を抽出する手法が報告されています。
+cmd.exe /Q /c powershell.exe -e <Base64 encoded PowerShell>
+デコード後のスクリプトは、オープンソースのVeeam-Get-Creds.ps1を改変したもので、新しいVeeam環境のsalt付きDPAPIにも対応しています。
+EDR停止用のカスタムツールでは、次の実行例が確認されています。
+ProcessTerminator.exe -p <PID/Process Name>
+また、ネットワーク探索では以下のツールパスが報告されています。
+C:\Program Files\Angry IP Scanner\ipscan.exe
+
+\\10.2.2.202\c$\Software\Advanced_IP_Scanner_2.5.3850.exe
+
+C:\ProgramData\VMware\libsm2\netscan.exe
+関連マルウェア・ツール
+「関連マルウェア」欄には、単にINC Ransomwareだけでなく、周辺ツールも記載できます。
+INC Ransomware（Windows、Linux／ESXi）
+改変版Veeam-Get-Creds.ps1
+ProcessTerminator
+Cobalt Strike
+AnyDesk
+ScreenConnect
+TeamViewer
+PsExec
+PsKill
+rclone
+7-Zip
+ただし、Cobalt Strike、AnyDesk、TeamViewerなどは正規ツールでもあるため、
+攻撃で悪用された正規／商用ツール
+と補足した方が正確です。INCの固有マルウェアと誤解されるのを防げます。
+テンプレートにそのまま入れる文章
+技術情報
+￼
+被害内容／侵害情報
+攻撃者は、脆弱な外部公開機器または窃取済み認証情報から侵入し、ネットワーク探索、Veeam Backupサーバからの認証情報窃取、RDPやPsExecによる横展開を実施する。その後、EDRプロセスを停止し、7-Zipとrcloneを用いてデータを持ち出した後、WindowsおよびLinux／ESXi環境へランサムウェアを展開する。
+ShinyHuntersはどうか
+ShinyHuntersについても、Microsoftが2026年7月13日に技術情報を公開しています。ただし、中心はSalesforce OAuth悪用の検知方法とIPアドレスであり、ファイルハッシュ、マルウェア、コマンドラインはほぼありません。
+現在の記事上では、以下のIPがIOC欄に掲載されています。
+138.226.246[.]94
+212.86.125[.]24
+213.111.148[.]90
+94.154.32[.]160
+ただしMicrosoftは、調査の結果、公開したIPの一部が攻撃調査を行う研究者に属していたため削除したと明記しています。また、138.226.246[.]94はKlue連携によるSalesforce APIアクセスとして説明されており、単純な悪性IOCとしてブロックするのは適切ではありません。
+したがって、今回の資料では、
+技術情報の充実度：INC Ransom ＞ ShinyHunters
+です。INC Ransomを採用する方が、画像の各欄を無理なく埋められます。
